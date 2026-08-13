@@ -1,26 +1,172 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #111111;
+  --foreground: #111111;
+  --paper: #efede8;
+  --ink: #111111;
+  --ink-soft: #6e6e6e;
+  --muted: #999999;
+  --subtle: #4a4a4a;
+  --border: #d8d5cf;
+  --border-strong: #b8b3aa;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  cursor: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  cursor: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.display-title {
+  font-weight: 1000;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  font-size: clamp(60px, 10vw, 132px);
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .display-title {
+    font-size: clamp(30px, 11.5vw, 60px);
+  }
+}
+
+.hero-name-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0vw;
+  gap: 0.02em;
+}
+
+.hero-name-stack span {
+  display: block;
+}
+
+.profile-image-card {
+  position: relative;
+  display: block;
+}
+
+.profile-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  border-radius: 1.1rem;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.profile-image--base {
+  opacity: 1;
+}
+
+.profile-image--hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.profile-image-card:hover .profile-image--base {
+  opacity: 0;
+}
+
+.profile-image-card:hover .profile-image--hover {
+  opacity: 1;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1px solid currentColor;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.3s ease-out,
+    height 0.3s ease-out,
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out,
+    opacity 0.3s ease-out;
+}
+
+.custom-cursor.is-interactive {
+  width: 9px;
+  height: 9px;
+  background: currentColor;
+  border: 0;
+}
+
+.label-text {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.body-copy {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.65;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .label-text {
+    font-size: 11px;
+  }
+
+  .body-copy {
+    font-size: 18px;
+  }
 }
