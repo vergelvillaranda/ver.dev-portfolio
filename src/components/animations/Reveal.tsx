@@ -23,7 +23,7 @@ export default function Reveal({
 
     if (!element) return;
 
-    const animation = gsap.fromTo(
+    const animation = gsap.fromTo(  
       element,
       {
         y: 60,
