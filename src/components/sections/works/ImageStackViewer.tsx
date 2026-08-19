@@ -3,7 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft01Icon, ArrowRight01Icon } from 'hugeicons-react';
+import {
+	ArrowLeft01Icon,
+	ArrowRight01Icon,
+	Cancel01Icon,
+	Maximize01Icon as ExpandIcon,
+} from 'hugeicons-react';
 import type { Project } from './types';
 
 const SPRING = { type: 'spring', stiffness: 320, damping: 34, mass: 0.9 } as const;
@@ -96,9 +101,10 @@ export default function ImageStackViewer({
 								setIsVideoFullscreen(false);
 							}}
 							aria-label="Exit fullscreen"
-							className="label-text absolute right-6 top-6 z-10 text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)] md:right-10 md:top-10"
+							className="label-text absolute right-6 top-6 z-10 flex items-center gap-2 text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)] md:right-10 md:top-10"
 						>
-							Close ✕
+							<Cancel01Icon size={16} />
+							Close
 						</button>
 						<video
 							src={activeItem.src}
@@ -128,9 +134,10 @@ export default function ImageStackViewer({
 			<button
 				onClick={onClose}
 				aria-label="Close gallery"
-				className="label-text absolute right-6 top-6 z-20 text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)] md:right-10 md:top-10"
+				className="label-text absolute right-6 top-6 z-20 flex items-center gap-2 text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)] md:right-10 md:top-10"
 			>
-				Close ✕
+				<Cancel01Icon size={16} />
+				Close
 			</button>
 
 			<motion.div
@@ -142,7 +149,7 @@ export default function ImageStackViewer({
 				onClick={(e) => e.stopPropagation()}
 			>
 				<p className="label-text mb-6 text-[var(--paper)]/60">
-					{project.name} — {String(index + 1).padStart(2, '0')} /{' '}
+					{project.name} · {String(index + 1).padStart(2, '0')} /{' '}
 					{String(total).padStart(2, '0')}
 				</p>
 
@@ -183,7 +190,7 @@ export default function ImageStackViewer({
 							return (
 								<motion.div
 									key={item.src}
-									className={`absolute top-0 h-full w-[62%] select none ${
+									className={`absolute top-0 h-full w-[62%] select-none ${
 										isCenter ? 'cursor-grab active:cursor-grabbing' : visible ? 'cursor-pointer' : 'pointer-events-none'
 									}`}
 									style={{ left: '50%', zIndex: isCenter ? 3 : visible ? 2 : 1 }}
@@ -225,9 +232,10 @@ export default function ImageStackViewer({
 														setIsVideoFullscreen(true);
 													}}
 													aria-label="Expand video to fullscreen"
-													className="label-text absolute right-3 top-3 z-10 rounded-full bg-black/60 px-3 py-1.5 text-[var(--paper)] transition-colors hover:bg-black/80"
+													className="label-text absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-[var(--paper)] transition-colors hover:bg-black/80"
 												>
-													Expand ⤢
+													<ExpandIcon size={14} />
+													Expand
 												</button>
 											</div>
 										) : (
@@ -241,12 +249,12 @@ export default function ImageStackViewer({
 										)
 									) : (
 										<img
-	src={item.src}
-	alt={`${project.name} preview ${i + 1}`}
-	className="h-full w-full object-contain"
-	loading={isCenter ? 'eager' : 'lazy'}
-	draggable={false}
-/>
+											src={item.src}
+											alt={`${project.name} preview ${i + 1}`}
+											className="h-full w-full object-contain"
+											loading={isCenter ? 'eager' : 'lazy'}
+											draggable={false}
+										/>
 									)}
 								</motion.div>
 							);
@@ -257,9 +265,10 @@ export default function ImageStackViewer({
 				<div className="mt-8 flex items-center gap-6">
 					<button
 						onClick={goPrev}
-						className="label-text text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)]"
+						className="label-text flex items-center gap-1.5 text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)]"
 					>
-						← Prev
+						<ArrowLeft01Icon size={14} />
+						Prev
 					</button>
 
 					<div className="flex gap-1.5">
@@ -277,9 +286,10 @@ export default function ImageStackViewer({
 
 					<button
 						onClick={goNext}
-						className="label-text text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)]"
+						className="label-text flex items-center gap-1.5 text-[var(--paper)]/70 transition-colors hover:text-[var(--paper)]"
 					>
-						Next →
+						Next
+						<ArrowRight01Icon size={14} />
 					</button>
 				</div>
 			</motion.div>
